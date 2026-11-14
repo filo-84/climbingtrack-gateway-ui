@@ -14,6 +14,7 @@ import {
 } from './api'
 import { ActionsScreen } from './actions/ActionsScreen'
 import { InstallScreen } from './install/InstallScreen'
+import { DayScreen } from './ranking/DayScreen'
 import { RankingScreen } from './ranking/RankingScreen'
 
 const RETRY_SECONDS = 10
@@ -184,15 +185,12 @@ export function App() {
           />
         ) : null}
         {screen.kind === 'day' ? (
-          <RankingScreen
+          <DayScreen
             title={dayListTitle(screen.ranking.day, screen.ranking.is_today)}
             ranking={screen.ranking}
             seconds={screen.seconds}
             zoom={screen.zoom}
-            counts={screen.counts}
             stale={screen.stale}
-            progressKey="day-ranking-ticker-progress"
-            tone="day"
           />
         ) : null}
         {screen.kind === 'actions' ? (

@@ -6,6 +6,8 @@ import { formatScore } from './format'
 const minScrollPixelsPerSecond = 20
 const maxScrollPixelsPerSecond = 100
 
+const tickerProgress = new Map<string, number>()
+
 export function Crawl({
   entries,
   seconds,
@@ -67,12 +69,9 @@ export function Crawl({
       frame = requestAnimationFrame(step)
     }
     frame = requestAnimationFrame(step)
-    const save = () => writeTickerProgress(progressKey, progressRef.current)
-    window.addEventListener('pagehide', save)
     return () => {
       cancelAnimationFrame(frame)
-      window.removeEventListener('pagehide', save)
-      save()
+      tickerProgress.set(progressKey, progressRef.current)
     }
   }, [duration, repeat, signature, progressKey])
 
@@ -117,24 +116,11 @@ function CrawlItem({ entry, seam }: { entry: RankingEntry; seam: boolean }) {
 }
 
 function readTickerProgress(progressKey: string): number {
-  try {
-    const raw = sessionStorage.getItem(progressKey)
-    const value = raw === null ? 0 : Number(raw)
-    if (!Number.isFinite(value)) {
-      return 0
-    }
-    return ((value % 1) + 1) % 1
-  } catch {
+  const value = tickerProgress.get(progressKey) ?? 0
+  if (!Number.isFinite(value)) {
     return 0
   }
-}
-
-function writeTickerProgress(progressKey: string, progress: number): void {
-  try {
-    sessionStorage.setItem(progressKey, String(progress))
-  } catch {
-    // The hall screen can keep moving without a stored position.
-  }
+  return ((value % 1) + 1) % 1
 }
 
 function scrollDurationSeconds(distancePx: number, displaySeconds: number): number {

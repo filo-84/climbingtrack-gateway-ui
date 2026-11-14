@@ -11,7 +11,6 @@ type RankingScreenProps = {
   zoom: DisplayZoom
   counts: DisplayCounts
   stale: boolean
-  tone?: 'board' | 'day'
   progressKey?: string
 }
 
@@ -24,7 +23,6 @@ export function RankingScreen({
   zoom,
   counts,
   stale,
-  tone = 'board',
   progressKey = bestClimberTickerKey,
 }: RankingScreenProps) {
   const frameRef = useRef<HTMLDivElement>(null)
@@ -105,7 +103,6 @@ export function RankingScreen({
   const showCrawl = crawling.length > 0
   const className = [
     'ranking',
-    tone === 'day' ? 'ranking-day' : '',
     visibleHigh.length + visibleMid.length + visibleTail.length === 0 && !showCrawl ? 'is-sparse' : '',
   ]
     .filter(Boolean)

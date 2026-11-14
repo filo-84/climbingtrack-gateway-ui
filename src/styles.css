@@ -22,7 +22,8 @@ body,
 .stage,
 .ranking,
 .actions,
-.install {
+.install,
+.day {
   height: 100%;
   margin: 0;
   overflow: hidden;
@@ -48,7 +49,8 @@ body {
 }
 
 .ranking,
-.actions {
+.actions,
+.day {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -56,16 +58,6 @@ body {
   background:
     radial-gradient(ellipse at 50% -20%, rgba(136, 73, 155, 0.14), transparent 52%),
     var(--paper);
-}
-
-.ranking-day {
-  background:
-    radial-gradient(ellipse at 70% -15%, rgba(228, 188, 78, 0.34), transparent 46%),
-    #f6f1e6;
-}
-
-.ranking-day .page-title::after {
-  background: #c4841d;
 }
 
 .ranking.is-sparse .podium {
@@ -313,49 +305,6 @@ body {
   background: linear-gradient(165deg, #ffe7a3 0%, #e4bc4e 100%);
 }
 
-.ranking-day .step-1 {
-  background: linear-gradient(165deg, #3a3126 0%, #241c14 100%);
-  color: #f8f1e6;
-}
-
-.ranking-day .step-2,
-.ranking-day .step-3 {
-  background: #fffdf8;
-  color: #241c14;
-}
-
-.ranking-day .step-1 .step-rank {
-  background: #e4bc4e;
-  color: #241c14;
-}
-
-.ranking-day .step-2 .step-rank,
-.ranking-day .step-3 .step-rank {
-  background: #f3e6cf;
-  color: #8a5a12;
-}
-
-.ranking-day .step-1 .step-points {
-  color: #f0c36a;
-  opacity: 1;
-}
-
-.ranking-day .ticker {
-  background: #2c2416;
-}
-
-.ranking-day .ticker::before {
-  background: linear-gradient(90deg, #2c2416, transparent);
-}
-
-.ranking-day .ticker::after {
-  background: linear-gradient(270deg, #2c2416, transparent);
-}
-
-.ranking-day .ticker-rank {
-  color: #f0c36a;
-}
-
 .step-2 {
   background: linear-gradient(180deg, #f5f6f8 0%, #d4d6de 100%);
 }
@@ -525,13 +474,6 @@ body {
   font-weight: 600;
 }
 
-.ranking-day .band-high .card-rank,
-.ranking-day .band-mid .card-rank,
-.ranking-day .band-tail .card-rank {
-  background: rgba(196, 132, 29, 0.16);
-  color: #8a5a12;
-}
-
 .ticker {
   position: relative;
   height: calc(56px * var(--zoom, 1));
@@ -603,6 +545,170 @@ body {
 
 .ticker-seam {
   padding-right: calc(10rem * var(--zoom, 1));
+}
+
+.day-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex: none;
+}
+
+.day-date {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: center;
+  min-width: 4.6rem;
+  padding: 8px 14px 10px;
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--brand);
+  box-shadow: 0 10px 26px rgba(27, 21, 34, 0.06);
+}
+
+.day-date-num {
+  font-size: 2.4rem;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+}
+
+.day-date-month {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.day-stack {
+  width: min(100%, 920px);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: none;
+}
+
+.day-places {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-place,
+.day-line {
+  display: grid;
+  grid-template-columns: calc(4.4rem * var(--zoom, 1)) minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: calc(18px * var(--zoom, 1));
+}
+
+.day-place {
+  min-height: calc(78px * var(--zoom, 1));
+  padding: 0 calc(22px * var(--zoom, 1));
+  border-radius: calc(18px * var(--zoom, 1));
+  color: #1c1408;
+  box-shadow:
+    0 16px 36px rgba(28, 20, 8, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.day-place-1 {
+  min-height: calc(108px * var(--zoom, 1));
+  background: linear-gradient(165deg, #ffe7a3 0%, #e4bc4e 100%);
+}
+
+.day-place-2 {
+  background: linear-gradient(180deg, #f5f6f8 0%, #d4d6de 100%);
+}
+
+.day-place-3 {
+  background: linear-gradient(180deg, #f6d7b6 0%, #e0a36a 100%);
+}
+
+.day-place-rank,
+.day-place-name,
+.day-place-points {
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.day-place-rank {
+  font-size: calc(1.7rem * var(--zoom, 1));
+  line-height: 1;
+}
+
+.day-place-1 .day-place-rank {
+  font-size: calc(2.6rem * var(--zoom, 1));
+}
+
+.day-place-name {
+  min-width: 0;
+  overflow: hidden;
+  font-size: calc(1.7rem * var(--zoom, 1));
+  font-variant-numeric: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.day-place-1 .day-place-name {
+  font-size: calc(2.45rem * var(--zoom, 1));
+}
+
+.day-place-points {
+  font-size: calc(1.45rem * var(--zoom, 1));
+}
+
+.day-place-1 .day-place-points {
+  font-size: calc(2.1rem * var(--zoom, 1));
+}
+
+.day-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.day-line {
+  height: var(--row);
+  padding: 0 calc(22px * var(--zoom, 1));
+  border-radius: calc(18px * var(--zoom, 1));
+  background: var(--card);
+  box-shadow: 0 10px 26px rgba(27, 21, 34, 0.06);
+}
+
+.day-line-rank {
+  color: var(--brand);
+  font-size: calc(1.45rem * var(--zoom, 1));
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.day-line-name {
+  min-width: 0;
+  overflow: hidden;
+  font-size: calc(1.6rem * var(--zoom, 1));
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.day-line-points {
+  color: #4a4454;
+  font-size: calc(1.45rem * var(--zoom, 1));
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
 .install {
